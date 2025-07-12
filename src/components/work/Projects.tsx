@@ -1,5 +1,5 @@
 import { getPosts } from "@/app/utils/utils";
-import { Column } from "@once-ui-system/core";
+import { Column, Row } from "@once-ui-system/core";
 import { ProjectCard } from "@/components";
 
 interface ProjectsProps {
@@ -7,7 +7,8 @@ interface ProjectsProps {
 }
 
 export function Projects({ range }: ProjectsProps) {
-  let allProjects = getPosts(["src", "app", "work", "projects"]);
+  let allProjects = getPosts(["src", "app", "work", "projects"]); // Path is src/app/work/projects where all the .mdx files are residing
+
 
   const sortedProjects = allProjects.sort((a, b) => {
     return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
@@ -18,7 +19,7 @@ export function Projects({ range }: ProjectsProps) {
     : sortedProjects;
 
   return (
-    <Column fillWidth gap="xl" marginBottom="40" paddingX="l">
+    <Row fillWidth gap="xl" marginBottom="40" paddingX="l" marginTop="40" mobileDirection="column">
       {displayedProjects.map((post, index) => (
         <ProjectCard
           priority={index < 2}
@@ -32,6 +33,6 @@ export function Projects({ range }: ProjectsProps) {
           link={post.metadata.link || ""}
         />
       ))}
-    </Column>
+    </Row>
   );
 }

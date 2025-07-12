@@ -5,6 +5,7 @@ import { home, about, person, newsletter, baseURL, routes } from "@/resources";
 import { Mailchimp } from "@/components";
 import { Projects } from "@/components/work/Projects";
 import { Posts } from "@/components/blog/Posts";
+import { ProjectsForLanding } from "@/components/work/ProjectsForLanding";
 
 export default function Home() {
   return (
@@ -25,12 +26,12 @@ export default function Home() {
       <Column fillWidth paddingY="24" gap="m">
         <Column maxWidth="s">
           {home.featured.display && (
-          <RevealFx fillWidth horizontal="start" paddingTop="16" paddingBottom="32" paddingLeft="12">
-            <Badge background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}
-              href={home.featured.href}>
-              <Row paddingY="2">{home.featured.title}</Row>
-            </Badge>
-          </RevealFx>
+            <RevealFx fillWidth horizontal="start" paddingTop="16" paddingBottom="32" paddingLeft="12">
+              <Badge background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}
+                href={home.featured.href}>
+                <Row paddingY="2">{home.featured.title}</Row>
+              </Badge>
+            </RevealFx>
           )}
           <RevealFx translateY="4" fillWidth horizontal="start" paddingBottom="16">
             <Heading wrap="balance" variant="display-strong-l">
@@ -67,22 +68,42 @@ export default function Home() {
           </RevealFx>
         </Column>
       </Column>
-      <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
-      </RevealFx>
+
+      {/* For Work Section */}
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <RevealFx translateY="16" delay={0.6}>
+          <ProjectsForLanding range={[1, 1]} />
+        </RevealFx>
+      </div>
+
+
+
       {routes["/blog"] && (
-        <Flex fillWidth gap="24" mobileDirection="column">
-          <Flex flex={1} paddingLeft="l" paddingTop="24">
-            <Heading as="h2" variant="display-strong-xs" wrap="balance">
-              Latest from the blog
-            </Heading>
+        <div>
+          <Heading as="h2" variant="display-strong-l" wrap="balance" align="center" marginBottom="8">
+            Latest from the blog
+          </Heading>
+          <Flex fillWidth gap="24" mobileDirection="column">
+            <Flex flex={3} paddingX="20" margin="2">
+              <Posts range={[1, 2]} columns="2" />
+            </Flex>
           </Flex>
-          <Flex flex={3} paddingX="20">
-            <Posts range={[1, 2]} columns="2" />
-          </Flex>
-        </Flex>
+        </div>
+
       )}
-      <Projects range={[2]} />
+
+      {/* Another section for projects */}
+      <div>
+        <Heading as="h2" variant="display-strong-l" wrap="balance" align="center">
+          More Projects from the history
+        </Heading>
+        <div style={{ marginTop: '5px'}}>
+          <ProjectsForLanding range={[2]} />
+        </div>
+      </div>
+
+
+
       {newsletter.display && <Mailchimp newsletter={newsletter} />}
     </Column>
   );

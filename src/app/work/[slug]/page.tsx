@@ -47,8 +47,7 @@ export default async function Project({
     notFound();
   }
 
-  const avatars =
-    post.metadata.team?.map((person) => ({
+  const avatars = post.metadata.team?.map((person) => ({
       src: person.avatar,
     })) || [];
 

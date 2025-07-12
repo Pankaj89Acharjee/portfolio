@@ -19,7 +19,7 @@ export default function Work() {
         as="webPage"
         baseURL={baseURL}
         path={work.path}
-        title={work.title}
+        title='{work.title}'
         description={work.description}
         image={`/api/og/generate?title=${encodeURIComponent(work.title)}`}
         author={{

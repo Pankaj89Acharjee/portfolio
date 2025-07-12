@@ -1,15 +1,15 @@
 import { Logo } from "@once-ui-system/core";
 
 const person = {
-  firstName: "Selene",
-  lastName: "Yu",
+  firstName: "Pankaj",
+  lastName: "Acharjee",
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Design Engineer",
-  avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  role: "Full Stack Web Developer",
+  avatar: "/images/avatar.png",
+  email: "pankaj2007acharjee@gmail.com",
+  location: "Asia/Kolkata", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
   languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
 };
 
@@ -55,16 +55,16 @@ const home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Building intuitive ideas into code</>,
   featured: {
     display: true,
-    title: <>Recent project: <strong className="ml-4">Once UI</strong></>,
+    title: <>Recent project: <strong className="ml-4">Priest AI</strong></>,
     href: "/work/building-once-ui-a-customizable-design-system",
   },
   subline: (
     <>
-      I'm Selene, a design engineer at <Logo icon="/trademarks/wordmark-dark.svg" style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}/>, where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
+      I'm Pankaj, Full Stack Web Developer at <Logo icon="/trademarks/wordmark-dark.svg" style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.15em" }} />, committed to creating elegant and user-friendly web solutions.
+      <br />I channel my expertise into building and managing my own portfolio of projects.
     </>
   ),
 };
@@ -72,7 +72,7 @@ const home = {
 const about = {
   path: "/about",
   label: "About",
-  title: `About – ${person.name}`,
+  title: `Portfolio – ${person.name}`,
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
     display: true,
@@ -90,9 +90,7 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        Leveraging deep expertise in NodeJS, ReactJS, and AWS, I am a Full Stack Developer focused on architecting, developing, and deploying highly scalable web and IoT applications. My commitment is to deliver robust, enterprise-grade solutions that provide clear business impact. I manage full lifecycle projects from concept to deployment, optimizing cloud-native systems and integrating real-time functionalities to achieve technical excellence for my clients.
       </>
     ),
   },
@@ -101,41 +99,80 @@ const about = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "EBIW Info Analytics Pvt Ltd",
+        timeframe: "2023 - Present",
+        role: "Full Stack Developer - Lead",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Led development & deployment of monolithic application (NodeJS + AWS) for IoT solutions, ensuring
+            high availability and security.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Designed real-time dashboards (ReactJS + MQTT + Socket.io) for high-frequency data streaming and
+            visualization.
           </>,
+          <>
+            Built and documented RESTful APIs with NodeJS (ExpressJS) and Swagger; optimized API response time
+            by 40%.
+          </>,
+          <>
+            Implemented microservices deployment via Docker Compose, containers and automated CI/CD pipelines with Github
+            Actions.
+          </>,
+          <>
+            Conducted code reviews, mentored junior developers, and enforced best practices (security, scalability).
+          </>,
+          <>
+            Strengthened application security through VAPT resolution and API hardening (OAuth, JWT)
+          </>
+
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
           {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
+            src: "/images/projects/project-01/dash.jpeg",
+            alt: "IoT dashboard",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/dash.jpeg",
+            alt: "IoT dashboard",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/dash.jpeg",
+            alt: "IoT dashboard",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/dash.jpeg",
+            alt: "IoT dashboard",
             width: 16,
             height: 9,
           },
         ],
       },
+
+
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Hashcash Consultants",
+        timeframe: "2022 - 2023",
+        role: "NodeJS Developer",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Developed scalable backend services for blockchain-based fund transfers and transaction management.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Built fund transfer microservice for internal crypto wallet systems with async validation, secure transaction queueing, and JWT-authenticated endpoints.
+          </>,
+          <>
+            Managed secure integration with Razorpay and AWS Secret Manager for key storage.
+          </>,
+          <>
+            Designed internal REST APIs using Express and deployed via Dockerized containers.
           </>,
         ],
         images: [],
@@ -147,12 +184,12 @@ const about = {
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Vidyasagar University",
+        description: <>MSc in Computer Science.</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "IGNOU",
+        description: <>Bachelor of Computer Applications.</>,
       },
     ],
   },
@@ -161,18 +198,34 @@ const about = {
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
-        description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
-        // optional: leave the array empty if you don't want to display images
+        title: "NodeJS",
+        description: <>Express.js, RESTful APIs, Microservices, Asynchronous Programming, Scaling, Database Integrations (PostgreSQL, MongoDB, MySQL).</>,
+        images: [],
+      },
+      {
+        title: "Next.js",
+        description: <>Architecting scalable frontend solutions with Next.js for the PriestAI project, focusing on dynamic content, API integration, and optimal user experience.</>,
         images: [
           {
-            src: "/images/projects/project-01/cover-02.jpg",
+            src: "/images/projects/project-01/PriestPage1.jpg",
             alt: "Project image",
             width: 16,
             height: 9,
           },
           {
-            src: "/images/projects/project-01/cover-03.jpg",
+            src: "/images/projects/project-01/PriestPage2.jpg",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/PriestPage3.jpg",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/PriestPage4.jpg",
             alt: "Project image",
             width: 16,
             height: 9,
@@ -180,17 +233,19 @@ const about = {
         ],
       },
       {
-        title: "Next.js",
-        description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        title: "Cloud & DevOps",
+        description: <>AWS (S3, Beanstalk, RDS, Secret Manager), Docker Compose, CI/CD (GitHub Actions).</>,
+        images: [],
+      },
+      {
+        title: "Security",
+        description: <> OAuth 2.0, JWT, API Security Best Practices, VAPT Issue Resolution, Firebase.</>,
+        images: [],
+      },
+      {
+        title: "Monitoring & Logging",
+        description: <> Node-Clinic, Prometheus, Grafana .</>,
+        images: [],
       },
     ],
   },

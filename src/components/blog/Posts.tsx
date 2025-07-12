@@ -39,7 +39,7 @@ export function Posts({
                             key={post.slug}
                             post={post}
                             thumbnail={thumbnail}
-                            direction={direction}
+                            direction={direction}                    
                         />
                     ))}
                 </Grid>

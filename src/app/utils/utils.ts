@@ -68,5 +68,6 @@ function getMDXData(dir: string) {
 
 export function getPosts(customPath = ["", "", "", ""]) {
   const postsDir = path.join(process.cwd(), ...customPath);
+  //console.log("Post direcdtory is", postsDir, 'and Custom path is', customPath)
   return getMDXData(postsDir);
 }
