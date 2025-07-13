@@ -1,5 +1,5 @@
 import { getPosts } from "@/app/utils/utils";
-import { Column, Row } from "@once-ui-system/core";
+import { Column, Grid, Row } from "@once-ui-system/core";
 import { ProjectCard } from "@/components";
 import { ProjectCardForLanding } from "../ProjectCardForLanding";
 
@@ -20,7 +20,7 @@ export function ProjectsForLanding({ range }: ProjectsProps) {
     : sortedProjects;
 
   return (
-    <Row fillWidth gap="xl" marginBottom="40" paddingX="l" marginTop="40" mobileDirection="column">
+    <Grid columns="2" mobileColumns="1" fillWidth gap="xl" marginBottom="40" paddingX="l" marginTop="40">
       {displayedProjects.map((post, index) => (
         <ProjectCardForLanding
           priority={index < 2}
@@ -34,6 +34,6 @@ export function ProjectsForLanding({ range }: ProjectsProps) {
           link={post.metadata.link || ""}
         />
       ))}
-    </Row>
+    </Grid>
   );
 }

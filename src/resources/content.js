@@ -63,7 +63,7 @@ const home = {
   },
   subline: (
     <>
-      I'm Pankaj, Full Stack Web Developer at <Logo icon="/trademarks/wordmark-dark.svg" style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.15em" }} />, committed to creating elegant and user-friendly web solutions.
+      I'm Pankaj, a Full Stack Web Developer at <Logo icon="/trademarks/wordmark-dark.svg" style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.15em" }} />, committed to creating elegant and user-friendly web solutions.
       <br />I channel my expertise into building and managing my own portfolio of projects.
     </>
   ),

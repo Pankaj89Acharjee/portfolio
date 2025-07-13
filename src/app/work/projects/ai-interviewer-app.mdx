@@ -3,43 +3,45 @@ title: "Building AI Interviewer, a Customizable Interviewing System"
 publishedAt: "2024-04-08"
 summary: "AI-driven voice-interview simulator with real-time feedback."
 images:
-  - "/images/projects/project-01/cover-01.jpg"
-  - "/images/projects/project-01/cover-02.jpg"
-  - "/images/projects/project-01/cover-03.jpg"
-  - "/images/projects/project-01/cover-04.jpg"
+  - "/images/projects/project-01/AI Interviewer1.jpg"
+  - "/images/projects/project-01/AI Interviewer2.jpg"
+  - "/images/projects/project-01/AI Interviewer3.jpg"
+  - "/images/projects/project-01/AI Interviewer4.jpg"
 team:
   - name: "Pankaj Acharjee"
     role: "Full Stack Web Developer"
     avatar: "/images/avatar.jpg"
-    linkedIn: "https://www.linkedin.com/company/once-ui/"
-  - name: "Jane Smith"
-    role: "Product Manager"
-    avatar: "/images/projects/project-01/avatar-01.jpg"
-    linkedIn: "https://www.linkedin.com/company/once-ui/"
+    linkedIn: "www.linkedin.com/in/pankaj-acharjee-0939924b" 
 ---
 
 ## Overview
 
-Development of a flexible and highly customizable design system using Next.js for front-end and Figma for design collaboration.
+AI Mock Interviewer is an intelligent, browser-based platform designed to help candidates practice for technical and behavioral interviews. The system simulates real-time interviews using AI-generated questions, tracks user responses, and provides constructive feedback on communication, confidence, and technical depth. The tool leverages natural language processing (NLP) and is built for scalability and customization across various domains.
 
 ## Key Features
 
-- **Component Library**: Built a set of modular, reusable UI components using React and styled-components in Next.js, focusing on accessibility and responsiveness.
-- **Theming and Customization**: Integrated a theming system that allows easy switching and customization of color palettes, typography, and layout styles using CSS variables and Figma tokens.
-- **Figma Integration**: Collaborated closely with designers by setting up a shared design library in Figma. This library was synchronized with the codebase, ensuring design handoffs were seamless and that design tokens remained consistent across both platforms.
-- **Documentation and Usage Guidelines**: Developed comprehensive documentation with Storybook to showcase components, usage patterns, and best practices, ensuring the design system is easy to adopt by other teams.
+- **AI-Generated Questions**: Dynamically adapts question sets based on user's role, experience, and topic (e.g., React, NodeJS, DSA).
+- **Speech Recognition**: Allows users to speak answers and receive real-time transcription.
+- **Performance Analysis**: Provides detailed feedback on speaking pace, filler words, clarity, and completeness.
+- **Custom Interview Modes**: Choose from mock HR, technical, or behavioral rounds.
+- **Responsive UI**: Built with ReactJS and styled using Tailwind CSS for a smooth experience.
+- **Backend APIs**: Developed using NodeJS, with secure and optimized response handling.
+- **CI/CD Integration**: Automated deployments with GitHub Actions for fast iteration and updates
 
 ## Technologies Used
 
 - **Next.js**: For fast, server-rendered React applications.
-- **Figma**: For creating and managing design assets and prototypes.
-- **Styled-Components**: For styling React components with a modular, themable approach.
-- **Storybook**: For building an interactive, documented component library.
+- **Speech Recognition**: Allows users to speak answers and receive real-time transcription.
+- **Gemini-AI-Generated Questions**: Dynamically adapts question sets based on user's role, experience, and topic (e.g., React, NodeJS, DSA).
+- **Custom Interview Modes**: Choose from mock HR, technical, or behavioral rounds.
+
 
 ## Challenges and Learnings
 
-One key challenge was balancing the need for flexibility with the desire to maintain design consistency. The solution involved creating well-defined design tokens and establishing clear guidelines for when and how components could be customized. Additionally, setting up effective collaboration workflows between designers and developers using Figma and Git was a learning experience that greatly improved the process.
+A primary challenge was integrating real-time speech-to-text processing with accurate and fast feedback generation. This was overcome by using lightweight NLP libraries and streamlined audio handling pipelines. Ensuring question diversity and avoiding repetition across sessions required building a smart question bank system with contextual filtering. Designing an intuitive yet flexible user experience for both technical and non-technical users also demanded iterative prototyping and UI tuning. Deployment was streamlined through GitHub Actions to support continuous updates without downtime.
 
 ## Outcome
 
-The design system is now actively used across multiple projects, leading to faster development cycles, fewer design inconsistencies, and improved collaboration between design and development teams. It has become a foundation for scaling our products efficiently while ensuring a cohesive user experience.
+The AI Mock Interviewer platform helped users boost interview readiness by simulating realistic interview environments, reducing anxiety, and identifying improvement areas. It received positive feedback from early users, particularly job seekers preparing for roles in software development and data science. The tool is scalable, customizable, and has potential for integration into online learning platforms or career coaching products.
+
+---

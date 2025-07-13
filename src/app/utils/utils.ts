@@ -9,6 +9,12 @@ type Team = {
   linkedIn: string;
 };
 
+type TechStack = {
+  name: string;
+  logos: string;
+}
+
+
 type Metadata = {
   title: string;
   publishedAt: string;
@@ -18,6 +24,7 @@ type Metadata = {
   tag?: string;
   team: Team[];
   link?: string;
+  techStackImages?: TechStack[]; 
 };
 
 import { notFound } from 'next/navigation';
@@ -47,6 +54,7 @@ function readMDXFile(filePath: string) {
     tag: data.tag || [],
     team: data.team || [],
     link: data.link || "",
+    techStackImages: data.techStackImages || [],
   };
 
   return { metadata, content };

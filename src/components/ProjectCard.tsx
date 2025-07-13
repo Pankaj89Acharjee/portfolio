@@ -19,6 +19,7 @@ interface ProjectCardProps {
   content: string;
   description: string;
   avatars: { src: string }[];
+  techavatars: { src: string }[];
   link: string;
 }
 
@@ -29,14 +30,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   content,
   description,
   avatars,
+  techavatars,
   link,
 }) => {
   return (
-    <div style={{ width: '500px' }}>
+    <div style={{ width: '1024px' }}>
       <Column fillWidth gap="s">
-        <div style={{ width: '500px', height: '300px' }}>
+        <div style={{ width: '100%', height: '590px' }}>
           <Carousel
-            sizes="(max-width: 960px) 100vw, 960px"
+            sizes="(max-width: 960px) 100vw, 970px"
             items={images.map((image) => ({
               slide: image,
               alt: title,
@@ -45,7 +47,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
 
         <Flex
-          direction="column"          
+          direction="column"
           fillWidth
           paddingX="s"
           paddingTop="1"
@@ -60,11 +62,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </Flex>
           )}
 
-    
+
 
           {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
             <Column flex={8} gap="16">
-              {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
+              <Row fillWidth gap="l" marginBottom="4" paddingX="s" marginTop="4" mobileDirection="column">
+                {techavatars?.length > 0 && <AvatarGroup avatars={techavatars} size="l" reverse />}
+                {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
+              </Row>
+
+
               {description?.trim() && (
                 <Text wrap="wrap" variant="body-default-l" onBackground="neutral-weak">
                   {description}

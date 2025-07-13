@@ -1,0 +1,61 @@
+---
+title: "Smartweld, a live streaming in-house IoT product for welding"
+publishedAt: "2025-04-01"
+summary: "Built live streaming dashboards for Smartweld product line with React, Node and PostgreSQL."
+images:
+  - "/images/projects/project-01/cover-02.jpg"
+  - "/images/projects/project-01/image-03.jpg"
+team:
+  - name: "Pankaj Acharjee"
+    role: "Full Stack Developer"
+    avatar: "/images/avatar.png"
+    linkedIn: "www.linkedin.com/in/pankaj-acharjee-0939924b"
+    link: "https://www.smartweld.com/"
+  - name: "Pronay Sinha"
+    role: "Full Stack Developer"
+  - name: "Sayantan Majumder"
+    role: "Product Engineer" 
+techStackImages:
+  - name: "ReactJS"
+    logos: "/images/projects/project-01/reactjsImg.png" 
+  - name: "PostgreSQL"
+    logos: "/images/projects/project-01/postgresqlImg.jpg" 
+  - name: "NodeJs"
+    logos: "/images/projects/project-01/nodejsImg.jpg" 
+
+---
+
+## Overview
+
+Smartweld is an in-house industrial IoT solution designed to monitor and manage welding machine performance in real time. The system integrates hardware sensors with real-time software dashboards using MQTT protocol, enabling efficient tracking of welding parameters like current, voltage, arc time, and error diagnostics. The web interface is built using ReactJS and Angular, and hosted on AWS for scalability and performance.
+
+## Key Features
+
+- **Real-time** data visualization of welding parameters.
+- **Secure MQTT**-based communication between devices and cloud.
+- **User-friendly** dashboards for analytics and machine status.
+- Scalable architecture deployed on AWS.
+
+## Technologies Used
+
+- **ReactJS**: For building the front-end codebase with clean, reusable components.
+- **NodeJS**: For building the back-end codebase with caching, secure API mechanism.
+- **Tailwind CSS**: For managing styles dynamically.
+- **GitHub Actions**: For automating the pipeline and syncing design changes to the repository.
+- **Real-time Data Monitoring**: Continuously tracks welding parameters like current, voltage, arc time, and machine health.
+- **MQTT Integration**: Enables lightweight, real-time communication between welding machines and the cloud.
+- **Cloud Deployment**: Hosted on AWS for scalability, reliability, and low-latency access.
+- **Secure API Access**: Backend APIs are protected with token-based authentication and caching for optimized performance.
+
+
+
+## Challenges and Learnings
+
+One of the major challenges in the Smartweld project was ensuring real-time, stable communication between hardware devices and the cloud in industrial environments with unstable network conditions. This was addressed by integrating the MQTT protocol with reconnect and retry logic. Handling and visualizing large volumes of continuous sensor data was another bottleneck — solved using data caching and optimized component rendering in React. We also tackled secure API access without compromising performance by implementing token-based authentication and rate limiting. Frequent design and feature updates were streamlined with GitHub Actions, enabling fast and reliable deployments.
+
+## Outcome
+
+As a result, Smartweld successfully reduced machine downtime by enabling proactive monitoring, improved decision-making through real-time analytics dashboards, and delivered a scalable and responsive web platform for end-users. The system is currently deployed in active production, supporting multiple machines with consistent performance and high user satisfaction from both technical and non-technical users.
+
+---
+

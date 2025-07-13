@@ -1,0 +1,54 @@
+---
+title: "MCQ Quiz Application – Interactive Learning & Assessment Tool"
+publishedAt: "2023-5-5"
+summary: "An interactive web application for creating and assessment of multiple choice type questions with Admin and Student panel."
+images:
+  - "/images/projects/project-01/MCQ-dashboard.png"
+  - "/images/projects/project-01/MCQ-admin.png"
+
+---
+
+
+##Overview
+
+The MCQ Quiz Application is a full-stack web app designed to help users test their knowledge across various topics through multiple-choice quizzes. It offers a seamless experience for learners and admins, featuring real-time scoring, timed quizzes, result tracking, and question management. The app is ideal for students, educators, and training platforms.
+
+
+
+
+## Key Features
+
+
+- **Quiz Play Mode**: Users can attempt quizzes with options for timed or untimed sessions.
+- **Instant Scoring**: Real-time feedback on correct/incorrect answers with score summary.
+- **Admin Panel**: Add, edit, or delete questions and categories dynamically.
+- **Question Bank**: Categorized by subject, difficulty level, and tags.
+- **Progress Tracking**: Stores past quiz attempts and scores for each user.
+- **Authentication**: Login system with role separation for admin and users.
+- **Responsive UI**: Built using ReactJS and styled with Tailwind CSS for smooth access on all devices.
+- **Pagination & Randomization**: Ensures no two quizzes are the same with shuffled questions and options.
+
+
+
+## Technologies Used
+
+- **ReactJS**: For building interactive, component-based front-end with clean UX.
+- **NodeJS & Express**: For backend logic, APIs, and secure role-based routing.
+- **MongoDB**: To store structured admin and student data, logs, and records.
+- **Tailwind CSS**: For styling with consistent design and responsiveness.
+- **JWT & Bcrypt**: For secure login, authentication, and role-based access control.
+- **Chart.js or Recharts**: For displaying user performance stats.
+
+
+## Challenges and Learnings
+
+One key challenge was implementing randomized yet non-repetitive question delivery during each quiz session. This was solved through smart indexing and shuffling algorithms. Ensuring data persistence and result tracking across sessions required structured schema design and local storage fallback. Creating an intuitive admin panel for non-technical users also demanded clean UX and validation logic. User authentication and preventing cheating (e.g., re-attempting with same questions) were addressed via role-based access and attempt history logic.
+
+
+
+
+## Outcome
+
+The MCQ Quiz App has helped learners practice and self-evaluate across various subjects with high engagement. Educators and training providers use it to digitally assess learners’ understanding and track performance over time. The platform is flexible enough to integrate into e-learning systems or use as a standalone testing tool.
+
+---

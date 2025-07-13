@@ -38,11 +38,15 @@ export default function Home() {
               {home.headline}
             </Heading>
           </RevealFx>
+
+          {/* Shows the Sub-header line like I'm, Pankaj, a Full Stack... */}
           <RevealFx translateY="8" delay={0.2} fillWidth horizontal="start" paddingBottom="32">
-            <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
+            <Text wrap="wrap" onBackground="neutral-weak" variant="heading-default-xl">
               {home.subline}
             </Text>
           </RevealFx>
+
+
           <RevealFx paddingTop="12" delay={0.4} horizontal="start" paddingLeft="12">
             <Button
               id="about"
@@ -69,10 +73,13 @@ export default function Home() {
         </Column>
       </Column>
 
-      {/* For Work Section */}
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      {/* For Projects Section */}
+      <div>
+        <Heading as="h2" variant="display-strong-l" wrap="balance" align="center" marginBottom="8">
+          Top project from my company
+        </Heading>
         <RevealFx translateY="16" delay={0.6}>
-          <ProjectsForLanding range={[1, 1]} />
+          <Projects range={[1, 1]} />
         </RevealFx>
       </div>
 
@@ -93,13 +100,16 @@ export default function Home() {
       )}
 
       {/* Another section for projects */}
-      <div>
+      <div >
         <Heading as="h2" variant="display-strong-l" wrap="balance" align="center">
-          More Projects from the history
+          Top Key Projects
         </Heading>
-        <div style={{ marginTop: '5px'}}>
-          <ProjectsForLanding range={[2]} />
-        </div>
+        <RevealFx translateY='16' delay={0.5} fillWidth>
+          <div style={{ marginTop: '5px' }}>
+            <ProjectsForLanding range={[2]} />
+          </div>
+        </RevealFx>
+
       </div>
 
 
