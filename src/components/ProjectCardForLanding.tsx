@@ -19,6 +19,7 @@ interface ProjectCardProps {
   content: string;
   description: string;
   avatars: { src: string }[];
+  techavatars: { src: string }[]
   link: string;
 }
 
@@ -29,6 +30,7 @@ export const ProjectCardForLanding: React.FC<ProjectCardProps> = ({
   content,
   description,
   avatars,
+  techavatars,
   link,
 }) => {
   return (
@@ -45,7 +47,7 @@ export const ProjectCardForLanding: React.FC<ProjectCardProps> = ({
         </div>
 
         <Flex
-          direction="column"          
+          direction="column"
           fillWidth
           paddingX="s"
           paddingTop="1"
@@ -60,11 +62,13 @@ export const ProjectCardForLanding: React.FC<ProjectCardProps> = ({
             </Flex>
           )}
 
-    
+
 
           {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
             <Column flex={8} gap="16">
-           
+              <Row>
+                {techavatars?.length > 0 && <AvatarGroup avatars={techavatars} size="s" reverse />}
+              </Row>
               <Flex gap="24" wrap>
                 {content?.trim() && (
                   <SmartLink
@@ -75,7 +79,7 @@ export const ProjectCardForLanding: React.FC<ProjectCardProps> = ({
                     <Text variant="body-default-s">Project Case Study</Text>
                   </SmartLink>
                 )}
-            
+
               </Flex>
             </Column>
           )}

@@ -7,7 +7,7 @@ interface ProjectsProps {
   range?: [number, number?];
 }
 
-export function ProjectsForLanding({ range }: ProjectsProps) {
+export function ProjectsForWorkPage({ range }: ProjectsProps) {
   let allProjects = getPosts(["src", "app", "work", "projects"]); // Path is src/app/work/projects where all the .mdx files are residing
 
 
@@ -20,7 +20,7 @@ export function ProjectsForLanding({ range }: ProjectsProps) {
     : sortedProjects;
 
   return (
-    <Grid columns="2" mobileColumns="1" fillWidth gap="xl" marginBottom="40" paddingX="l" marginTop="40">
+    <Grid columns="2" mobileColumns="1" fillWidth gap="l" marginBottom="40" paddingX="l" marginTop="40">
       {displayedProjects.map((post, index) => (
         <ProjectCardForLanding
           priority={index < 2}

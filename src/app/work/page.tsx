@@ -1,6 +1,7 @@
-import { Column, Meta, Schema } from "@once-ui-system/core";
+import { Column, Grid, Meta, Row, Schema, Text } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
 import { Projects } from "@/components/work/Projects";
+import { ProjectsForWorkPage } from "@/components/work/ProjectsForWorkPage";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -14,7 +15,9 @@ export async function generateMetadata() {
 
 export default function Work() {
   return (
-    <Column maxWidth="m">
+
+
+    <Grid columns="2" mobileColumns="1" fillWidth gap="xl" marginBottom="40" paddingX="xl" marginTop="40">      
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -28,7 +31,8 @@ export default function Work() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Projects />
-    </Column>
+      
+        <ProjectsForWorkPage />
+    </Grid>
   );
 }
