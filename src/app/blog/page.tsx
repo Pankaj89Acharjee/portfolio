@@ -8,14 +8,14 @@ export async function generateMetadata() {
     title: blog.title,
     description: blog.description,
     baseURL: baseURL,
-    image: `/api/og/generate?title=${encodeURIComponent(blog.title)}`,
-    path: blog.path,
+    image: `/api/og/generate?title=${encodeURIComponent(blog.title)}`, // it is Brief details about design and project setup
+    path: blog.path,  // it is /blog
   });
 }
 
 export default function Blog() {
   return (
-    <Column maxWidth="s">
+    <Column maxWidth="m">
       <Schema
         as="blogPosting"
         baseURL={baseURL}
@@ -29,14 +29,13 @@ export default function Blog() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Heading marginBottom="l" variant="display-strong-s">
+      <Heading marginBottom="xl" variant="display-strong-s">
         {blog.title}
       </Heading>
-      <Column
-				fillWidth flex={1}>
+      <Column fillWidth flex={1}>
 				<Posts range={[1,1]} thumbnail direction="column"/>
-				<Posts range={[2,3]} thumbnail/>
-				<Posts range={[4]} columns="2"/>
+				<Posts range={[2,3]} thumbnail columns="2"/>
+				<Posts range={[4]} columns="3"/>
 			</Column>
       {newsletter.display && <Mailchimp newsletter={newsletter} />}
     </Column>

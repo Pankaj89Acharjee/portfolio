@@ -1,0 +1,122 @@
+---
+title: "Securing MQTT WebSocket Connections in Public Networks"
+publishedAt: "2025-07-15"
+summary: "Public networks are risky. Learn how to protect your MQTT over WebSocket connections using TLS, JWT, IP filtering, and authentication best practices."
+tag: "Smartweld Security"
+---
+
+When deploying MQTT-over-WebSocket connections in **Smartweld**, we realized that **devices operating in the field over public Wi-Fi or mobile networks** were vulnerable to sniffing, hijacking, and impersonation. This post explains how we tackled those risks.
+
+---
+
+## Why MQTT Needs Security in Public Networks
+
+MQTT is lightweight but not secure by default. On open networks (like mobile hotspots or factory Wi-Fi), unencrypted WebSocket (`ws://`) connections can be:
+
+- **Sniffed** — anyone on the same network can read your messages
+- **Hijacked** — attacker can spoof a client and send fake data
+- **Tampered** — no verification of sender without authentication
+
+<Feedback
+  icon
+  variant="danger"
+  title="MQTT is insecure by default"
+  description="Without TLS and authentication, anyone can subscribe or publish to your MQTT topics and access sensitive device data."
+  marginBottom="24"
+/>
+
+---
+
+## Solution 1: Always use wss (TLS)
+
+Encrypt the entire MQTT connection using **TLS (SSL)**.
+
+Update your broker and NGINX (or reverse proxy) to support `wss://`.
+
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `server {
+        listen 443 ssl;
+        server_name mqtt.smartweld.io;
+
+        ssl_certificate     /etc/ssl/certs/fullchain.pem;
+        ssl_certificate_key /etc/ssl/private/privkey.pem;
+
+        location /mqtt {
+          proxy_pass http://localhost:1884;
+
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "Upgrade";
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+        }
+    }`,
+    language: "nginx",
+    label: "NGINX with wsl"
+    }
+]}/>
+
+This ensures end-to-end encryption between client and server.
+
+
+## Use MQTT over WebSocket with JWT Authentication (Solution 2)
+For each device, issue a JWT token signed with your backend secret. The frontend (or IoT device) can send it during connection.
+
+Frontend (React/MQTT.js):
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const token = getJwtFromStorage();
+
+       const client = mqtt.connect("wss://mqtt.smartweld.io/mqtt", {
+        clientId: \`device-${Math.random().toString(16).substr(2, 8)}\`,
+        username: "jwt",
+        password: token
+    });`,
+    language: "javascript",
+    label: "NGINX with wsl"
+    }
+]}/>
+
+
+## Limit IP Access or Rate Limit Connections (Solution 3)
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `allow 203.0.113.0/24;
+       deny all;`,
+    language: "nginx",
+    label: "NGINX setup to allow a defined IP"
+    }
+]}/>
+
+
+<AccordionGroup
+items={[
+{
+title: "Can I use Basic Auth instead of JWT?",
+content: <Text variant="body-default-s" onBackground="neutral-weak">You can, but it’s less secure. JWT provides stateless, signed verification and better control.</Text>
+},
+{
+title: "Is MQTTs (TLS on port 8883) better?",
+content: <Text variant="body-default-s" onBackground="neutral-weak">Yes, if you're not using a browser. For frontend or React apps, WebSocket + TLS (wss://) is more practical.</Text>
+},
+{
+title: "Can I use MQTT over HTTP/2?",
+content: <Text variant="body-default-s" onBackground="neutral-weak">MQTT is not natively supported over HTTP/2 yet. Stick with WebSocket for now.</Text>
+}
+]}
+/>
+
+<Row fillWidth horizontal="center" marginTop="16"> <SmartLink href="https://mqtt.org" suffixIcon="chevronRight">Learn more at mqtt.org</SmartLink> </Row>

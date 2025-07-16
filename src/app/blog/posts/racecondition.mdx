@@ -1,0 +1,66 @@
+---
+title: "Race Condition in Smartweld Project"
+publishedAt: "2025-06-02"
+summary: "A deep dive into a race condition issue faced during real-time data synchronization in the Smartweld IoT-based welding solution."
+image: "/images/projects/project-01/smartweld.jpeg"
+tag: "Smartweld Insights"
+---
+
+Smartweld is an industrial IoT solution that captures real-time welding data using sensors embedded in machines. During the integration of MQTT, React, and backend services, we encountered a classic race condition scenario that exposed the importance of managing asynchronous events and state synchronization carefully.
+
+## What is a Race Condition?
+
+<Feedback
+  icon
+  title="Race Condition"
+  variant="info"
+  description="A race condition occurs when two or more operations run concurrently, and the outcome depends on the sequence or timing of their execution."
+  marginBottom="24"
+/>
+
+## Problem Statement
+
+In Smartweld, we were listening to real-time MQTT messages from welding machines and updating a dashboard built in React. However, the UI was intermittently showing **stale or incorrect data** during high-frequency message flow.
+
+<Media
+  src="/images/projects/project-01/smartweld.jpeg"
+  sizes="640px"
+  alt="Race condition glitch on dashboard"
+  aspectRatio="16/9"
+  radius="l"
+/>
+
+## Cause of the Race Condition
+
+The main issue arose from a **shared state mutation** between:
+
+- **Incoming MQTT messages**
+- **React state updates**
+- **Backend API sync**
+
+<Table 
+  data={{
+    headers: [
+      { content: "Component", key: "component", sortable: true },
+      { content: "Operation", key: "operation", sortable: true },
+      { content: "Conflict", key: "conflict" }
+    ],
+    rows: [
+      ["MQTT Listener", "On message, update welding data", "Triggers React setState"],
+      ["React Dashboard", "Render updated data", "Sometimes renders stale state"],
+      ["API Poller", "Fetch fallback data every 10s", "Overwrites MQTT state"]
+    ]
+  }}
+/>
+
+## Code Glimpse
+
+A simplified version of the problematic code:
+
+```javascript
+useEffect(() => {
+  mqttClient.on("message", (topic, message) => {
+    const data = JSON.parse(message.toString());
+    setWeldingData(prev => ({ ...prev, [data.id]: data }));
+  });
+}, []);

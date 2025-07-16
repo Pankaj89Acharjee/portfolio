@@ -1,0 +1,135 @@
+---
+title: "Optimizing Rendering Performance in Real-Time React Apps"
+publishedAt: "2025-07-15"
+summary: "Learn key React patterns and tips to reduce unnecessary re-renders when building real-time apps like MQTT dashboards."
+tag: "React Performance"
+---
+
+Real-time dashboards like **Smartweld** deal with fast-updating data — sometimes every second. If you're not careful, this can lead to **excessive re-renders**, UI jank, and high CPU usage.
+
+In this post, I'll walk through how I optimized rendering performance in a React app consuming **MQTT data over WebSocket**.
+
+---
+
+## 🧠 The Problem: Too Many Re-Renders
+
+When using `useState` to update every incoming message, React re-renders the entire component tree every time — even if the UI didn’t change much.
+
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const [payload, setPayload] = useState(null);
+
+        useEffect(() => {
+          client.on("message", (topic, message) => {
+            setPayload(JSON.parse(message.toString()));
+          });
+        }, []);`,
+    language: "javascript",
+    label: "Subscribing topic using useState hook"
+    }
+]}/>
+
+❌ This leads to reactive overkill.
+
+
+
+## Solution 1: Use useRef for Non-UI State
+
+If the data doesn’t need to trigger a UI update (e.g. logging, comparison, or batching), keep it in useRef.
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const payloadRef = useRef(null);
+
+        useEffect(() => {
+          client.on("message", (topic, message) => {
+            payloadRef.current = JSON.parse(message.toString());
+          });
+        }, []);`,
+    language: "javascript",
+    label: "Using useRef hook to prevent unnecessary re-renders"
+    }
+]}/>
+
+💡 This avoids re-renders entirely.
+
+
+## Solution 2: Memoize Components That Don’t Change
+
+Use React.memo() to wrap child components that don’t need to update every time.
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const DeviceCard = React.memo(({ id, status }) => {
+        return (
+          <div>
+            <p>{id}</p>
+            <p>{status}</p>
+          </div>
+        );
+      });`,
+    language: "jsx",
+    label: "Using useRef hook to prevent unnecessary re-renders"
+    }
+]}/>
+
+Combine with useCallback for event handlers passed to children.
+
+
+## Solution 3: Batch Updates or Throttle Data
+
+If your WebSocket sends 10 updates per second, you don’t need to re-render 10 times per second.
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const latestPayload = useRef(null);
+
+        useEffect(() => {
+          const handler = setInterval(() => {
+            setPayload(latestPayload.current);
+          }, 1000);
+
+          return () => clearInterval(handler);
+        }, []);
+
+        useEffect(() => {
+          client.on("message", (topic, message) => {
+            latestPayload.current = JSON.parse(message.toString());
+          });
+        }, []);`,
+    language: "javascript",
+    label: "Using batch updates to optmise re-renders"
+    }
+]}/>
+
+⏱️ Now the UI updates once per second, regardless of incoming data rate.
+
+
+
+## Solution 5: Use React DevTools to Analyze Renders
+
+Use the Profiler tab to see which components render most often. Wrap suspected ones in React.memo or restructure state accordingly.
+
+<Feedback icon variant="info" title="Use tools like why-did-you-render" description="Helps you spot unnecessary renders in development by logging them in the console." marginBottom="24" />
+
+## Final Thoughts
+
+- **Real-time UIs** are exciting but tricky. Without optimization, your app can:
+- Drain battery on mobile
+- Freeze under heavy load
+- Render **stale** or **duplicated** data
+- Use **useRef**, **memoization**, and **controlled state updates** to keep your UI fast and smooth.
+
+
+<Row fillWidth horizontal="center" marginTop="16"> <SmartLink href="https://react.dev/learn/optimizing-performance" suffixIcon="chevronRight"> Learn more at react.dev </SmartLink> </Row> 

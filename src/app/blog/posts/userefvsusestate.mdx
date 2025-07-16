@@ -1,0 +1,127 @@
+---
+title: "Using useRef vs useState for Real-Time MQTT Data in React"
+publishedAt: "2025-05-15"
+summary: "In this post, I’ll explain how useRef can significantly improve performance and accuracy when working with real-time MQTT data in React apps."
+tag: "Smartweld Insights"
+---
+
+In real-time applications like **Smartweld**, managing incoming MQTT data efficiently is crucial. Initially, I used `useState` to store and render data, but I ran into performance issues and missed updates. Here's how `useRef` solved those problems.
+
+## The Problem with useState in Real-Time Loops
+
+When you use `useState` to handle frequently incoming MQTT messages, every update causes a re-render.
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const [data, setData] = useState({});
+
+       client.on("message", (topic, message) => {
+       const parsed = JSON.parse(message.toString());
+       setData(prev => ({
+       ...prev,
+       [parsed.machineId]: parsed
+       }));
+    });`,
+    language: "jsx",
+    label: "Drawback of using useState()"
+    }
+  ]}/>
+
+
+This works, but causes excessive re-renders, especially when messages are frequent (e.g., every 1 second or faster).
+
+<Feedback icon variant="warning" title="Re-render storm" description="Every state update triggers a component re-render. This can freeze the UI or create lags in real-time dashboards." marginBottom="24" />
+
+## The useRef Approach
+
+Refs don’t trigger re-renders. They are perfect for tracking **mutable data that doesn’t need to trigger UI updates on every change.**
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const dataRef = useRef({});
+
+       client.on("message", (topic, message) => {
+       const parsed = JSON.parse(message.toString());
+       dataRef.current[parsed.machineId] = parsed;
+      });`,
+       language: "jsx",
+       label: "Advancement of using useRef( ) for tracking mutation"
+    }
+  ]}/>
+
+Now the MQTT messages update `dataRef.current` silently in the background.
+
+- We avoided unnecessary re-renders
+- We're still keeping the latest data available
+
+
+## Then How to Display it?
+
+We may manually re-render at an interval or on user request, for that we can use a dummy state toggle.
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `const [tick, setTick] = useState(0);
+
+      // Force re-render every 5 seconds
+      useEffect(() => {
+      const interval = setInterval(() => {
+      setTick(t => t + 1);
+      }, 5000);
+      return () => clearInterval(interval);
+      }, []);`,
+       language: "jsx",
+       label: "Using setInterval( ) for force re-render"
+    }
+  ]}/>
+
+  Then render from `dataRef.current` like this:
+
+  <CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `{Object.values(dataRef.current).map((item, i) => (
+       <div key={i}>
+        <h3>Machine: {item.machineId}</h3>
+        <p>Voltage: {item.voltage}</p>
+        <p>Current: {item.current}</p>
+        <p>Status: {item.status}</p>
+      </div>
+    ))};`,
+       language: "jsx",
+       label: "Displaying using dataRef.current"
+    }
+  ]}/>
+
+
+## When to Use What?
+
+<AccordionGroup
+items={[
+{
+title: "Use useState when...",
+content: <Text variant="body-default-s" onBackground="neutral-weak">You need to update the UI immediately whenever data changes — such as user input or form handling.</Text>
+},
+{
+title: "Use useRef when...",
+content: <Text variant="body-default-s" onBackground="neutral-weak">You're handling high-frequency updates that don’t always require re-renders — like MQTT data, cursor positions, or performance metrics.</Text>
+}
+]}
+/>
+
+## Final Thought
+
+<Feedback icon variant="success" title="Ref to the Rescue" description="Switching from useState to useRef for MQTT data in Smartweld greatly improved performance and eliminated UI lags." marginBottom="24" />
+
+<Row fillWidth horizontal="center" marginTop="16"> <SmartLink href="https://react.dev/reference/react/useRef" suffixIcon="chevronRight">Learn more about useRef</SmartLink> </Row> ```

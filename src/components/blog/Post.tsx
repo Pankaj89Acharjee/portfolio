@@ -42,12 +42,12 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                 <Column
                     position="relative"
                     fillWidth gap="4"
-                    padding="24"
+                    padding="20"
                     vertical="center">
                     <Heading
                         as="h2"
                         variant="heading-strong-l"
-                        wrap="balance">
+                        wrap="wrap">
                         {post.metadata.title}
                     </Heading>
                     <Text

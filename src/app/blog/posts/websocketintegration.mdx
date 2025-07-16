@@ -1,0 +1,140 @@
+---
+title: "MQTT WebSocket Integration in Smartweld"
+publishedAt: "2025-07-15"
+summary: "How we used MQTT over WebSocket to stream real-time welding data into a Smartweld dashboard."
+image: "/images/projects/project-01/smartweld.jpeg"
+tag: "Smartweld Insights"
+---
+
+MQTT is a lightweight protocol ideal for IoT applications. In Smartweld, we used MQTT over WebSockets to subscribe to real-time welding data from edge devices, which was then used to update a React-based dashboard.
+
+## What is MQTT over WebSocket?
+
+<Feedback
+  icon
+  variant="info"
+  title="MQTT + WebSocket"
+  description="Using WebSocket transport, MQTT clients can communicate with a broker from the browser, enabling live updates in real-time dashboards."
+  marginBottom="24"
+/>
+
+## MQTT Client Setup
+
+We used the `mqtt` package in the frontend to connect to the broker via WebSockets.
+
+<CodeBlock compact marginBottom="16" codes={[
+  {
+    code: "npm install mqtt",
+    language: "bash"
+  }
+]} />
+
+We need to setup mqtt with URL and port including the username and password.
+
+<CodeBlock
+  compact
+  marginBottom="16"
+  highlight="5,10"
+  codes={[
+    {
+      code:
+`import { connect } from "mqtt";
+
+const client = connect("wss://broker.example.com:8884", {
+  clientId: \`smartweld-client-\${Math.random().toString(16).substr(2, 8)}\`,
+  username: "device_user",
+  password: "device_password"
+});
+
+client.on("connect", () => {
+  console.log("Connected to MQTT broker");
+  client.subscribe("smartweld/device/+/data");
+});`,
+      language: "javascript"
+    }
+  ]}
+/>
+
+
+## Receiving data
+
+The receiving of data requires a callback method namely .on method with two parameters viz., **message** and **(topic, message)**
+
+- Receiving data using **client.on("message")**
+- Rendering the received data in **HTML/JSX**
+- Gracefully closing the **MQTT connection**
+
+<CodeBlock compact marginBottom="16" codes={[
+  {
+    code:
+`client.on("message", (topic, message) => {
+  const data = JSON.parse(message.toString());
+  setWeldingData(prev => ({
+    ...prev,
+    [data.machineId]: data
+  }));
+});`,
+    language: "tsx"
+  }
+]} />
+
+
+## Closing and Clean Up connection
+
+Closing the existing connection is crucial when it is no longer required. 
+
+<CodeBlock compact marginBottom="16" codes={[
+  {
+    code:
+`useEffect(() => {
+  return () => {
+    if (client.connected) {
+      client.end(true, () => {
+        console.log("MQTT connection closed");
+      });
+    }
+  };
+}, []);`,
+    language: "tsx"
+  }
+]} />
+
+
+
+## Displaying Live Data
+ 
+
+<CodeBlock compact marginBottom="16" codes={[
+  {
+    code:
+`{Object.values(weldingData).map((item, i) => (
+  <div key={i}>
+    <h3>Machine: {item.machineId}</h3>
+    <p>Voltage: {item.voltage} V</p>
+    <p>Current: {item.current} A</p>
+    <p>Status: {item.status}</p>
+  </div>
+))}`,
+    language: "tsx"
+  }
+]} />
+
+
+<AccordionGroup
+items={[
+{
+title: "Security Tip",
+content: <Text variant="body-default-s" onBackground="neutral-weak">Always use secure WebSocket (wss://) and authentication to protect your MQTT broker.</Text>
+},
+{
+title: "Performance Tip",
+content: <Text variant="body-default-s" onBackground="neutral-weak">Throttle state updates or use refs to avoid React re-render storms.</Text>
+},
+{
+title: "Topic Design",
+content: <Text variant="body-default-s" onBackground="neutral-weak">Use topic wildcards (e.g., +/data) for flexibility across multiple devices.</Text>
+}
+]}
+/>
+
+<Row fillWidth horizontal="center" marginTop="16"> <SmartLink href="https://www.home-assistant.io/integrations/mqtt/" suffixIcon="chevronRight">Learn more MQTT Broker</SmartLink> </Row> ```

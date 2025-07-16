@@ -1,0 +1,157 @@
+---
+title: "Setting Up WebSocket Load Balancing on NGINX for MQTT Traffic"
+publishedAt: "2025-07-15"
+summary: "Learn how I configured NGINX to handle WebSocket-based MQTT connections and distribute them across multiple backend services for Smartweld."
+tag: "Smartweld Infra"
+---
+
+When building a real-time system like **Smartweld**, we needed to handle **hundreds of MQTT-over-WebSocket clients** efficiently. To avoid a single point of failure and scale horizontally, I configured **NGINX as a WebSocket-aware load balancer**.
+
+This article shows you how to do it from scratch.
+
+---
+
+## Why Load Balance WebSocket MQTT?
+
+Unlike HTTP, WebSocket connections stay **open for a long time**. If you're serving WebSocket traffic from a single Node.js or MQTT server, you can quickly hit connection limits.
+
+<Feedback
+  icon
+  variant="info"
+  title="Persistent connections"
+  description="WebSocket clients stay connected, so it's important to distribute the load evenly using a smart reverse proxy like NGINX."
+  marginBottom="24"
+/>
+
+---
+
+## Prerequisites
+
+- NodeJS or Mosquitto MQTT broker supporting WebSocket on backend
+- NGINX installed (1.3+ to support WebSockets)
+- SSL certificate (optional but recommended)
+
+---
+
+## NGINX WebSocket Proxy Config
+
+Here's a basic NGINX configuration to **proxy and load balance MQTT-over-WebSocket** traffic to multiple backend services:
+
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `http {
+        upstream mqtt_backend {
+            server 127.0.0.1:1885;
+            server 127.0.0.1:1886;
+        }
+
+        server {
+            listen 80;
+            server_name mqtt.smartweld.io;
+
+            location /mqtt {
+            proxy_pass http://mqtt_backend;
+
+            # WebSocket headers
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
+
+            # Forward client IP
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            }
+        }
+    };`,
+    language: "bash",
+    label: "Basic NGINX setup"
+    }
+  ]}/>
+
+
+<CodeBlock compact marginBottom="16" codes={[
+{
+code: `proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection "Upgrade";`,
+language: "nginx"
+}
+]} />
+
+- These lines ensure `NGINX` properly upgrades the `HTTP` connection to WebSocket.
+
+
+
+## Securing WebSocket over SSL
+
+If using SSL `(wss://)`, we just need to change the listen and add certificate paths:
+
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `server {
+        listen 443 ssl;
+        server_name mqtt.smartweld.io;
+
+        ssl_certificate     /etc/ssl/certs/your_cert.crt;
+        ssl_certificate_key /etc/ssl/private/your_key.key;
+
+       location /mqtt {
+            proxy_pass http://mqtt_backend;
+
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+       }
+    };`,
+    language: "bash",
+    label: "NGINX setup with SSL"
+    }
+  ]}/>
+
+
+## Testing the Setup
+
+We can test the setup using the MQTT.js client from the frontend:
+<CodeBlock 
+  marginBottom="16"
+  codes={[
+    {
+      code:
+      `import { connect } from "mqtt";
+
+       const client = connect("wss://mqtt.smartweld.io/mqtt", {
+       clientId: "client-" + Math.random().toString(16).substr(2, 8),
+    });`,
+    language: "jsx",
+    label: "Code Testing"
+    }
+]}/>
+
+
+## Final Thoughts
+
+<AccordionGroup
+items={[
+{
+title: "Why not use sticky sessions?",
+content: <Text variant="body-default-s" onBackground="neutral-weak">MQTT clients don’t require sticky sessions because each device maintains its connection. Load balancing works well with round-robin or IP-hash strategies.</Text>
+},
+{
+title: "What if a broker crashes?",
+content: <Text variant="body-default-s" onBackground="neutral-weak">Clients reconnect to the next available broker. Make sure your broker supports retained messages and session persistence if needed.</Text>
+},
+{
+title: "Do I need SSL?",
+content: <Text variant="body-default-s" onBackground="neutral-weak">Yes, especially in production. Browsers block ws:// connections on HTTPS sites, and devices may send sensitive data.</Text>
+}
+]}
+/>
+
+<Row fillWidth horizontal="center" marginTop="16"> <SmartLink href="https://nginx.org/en/docs/http/websocket.html" suffixIcon="chevronRight">NGINX WebSocket Docs</SmartLink> </Row>
