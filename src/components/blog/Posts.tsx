@@ -44,7 +44,7 @@ export function Posts({
     return (
         <>
             {displayedBlogs.length > 0 && (
-                <Grid
+                <Grid                    
                     columns={columns} mobileColumns="1"
                     fillWidth marginBottom="40" gap="12">
                     {displayedBlogs.map((post) => (

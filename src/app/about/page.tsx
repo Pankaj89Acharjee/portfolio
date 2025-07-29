@@ -1,17 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Column,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Media,
-  Tag,
-  Text,
-  Meta,
-  Schema
-} from "@once-ui-system/core";
+import { Avatar, Button, Column, Flex, Heading, Icon, IconButton, Media, Tag, Text, Meta, Schema } from "@once-ui-system/core";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
@@ -153,26 +140,26 @@ export default function About() {
                 {social.map(
                   (item) =>
                     item.link && (
-                        <React.Fragment key={item.name}>
-                            <Button
-                                className="s-flex-hide"
-                                key={item.name}
-                                href={item.link}
-                                prefixIcon={item.icon}
-                                label={item.name}
-                                size="s"
-                                weight="default"
-                                variant="secondary"
-                            />
-                            <IconButton
-                                className="s-flex-show"
-                                size="l"
-                                key={`${item.name}-icon`}
-                                href={item.link}
-                                icon={item.icon}
-                                variant="secondary"
-                            />
-                        </React.Fragment>
+                      <React.Fragment key={item.name}>
+                        <Button
+                          className="s-flex-hide"
+                          key={item.name}
+                          href={item.link}
+                          prefixIcon={item.icon}
+                          label={item.name}
+                          size="s"
+                          weight="default"
+                          variant="secondary"
+                        />
+                        <IconButton
+                          className="s-flex-show"
+                          size="l"
+                          key={`${item.name}-icon`}
+                          href={item.link}
+                          icon={item.icon}
+                          variant="secondary"
+                        />
+                      </React.Fragment>
                     ),
                 )}
               </Flex>

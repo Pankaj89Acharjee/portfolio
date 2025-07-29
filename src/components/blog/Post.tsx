@@ -15,7 +15,7 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
         <SmartLink
             fillWidth
             unstyled
-            style={{ borderRadius: 'var(--radius-l)' }}
+            style={{ borderRadius: 'var(--radius-l)', border: '0.5px solid #ccc' }}
             key={post.slug}
             href={`/blog/${post.slug}`}>
             <Flex

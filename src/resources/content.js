@@ -18,8 +18,7 @@ const newsletter = {
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: (
     <>
-      I occasionally write about design, technology, and share thoughts on the intersection of
-      creativity and engineering.
+      If you found something interesting on me, finding any fit for any role at your organisation, feel free to contact me by filling the form.
     </>
   ),
 };
@@ -35,7 +34,7 @@ const social = [
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "www.linkedin.com/in/pankaj-acharjee-0939924b",
+    link: "https://www.linkedin.com/in/pankaj-acharjee-0939924b",
   },
   {
     name: "Email",
@@ -66,7 +65,7 @@ const home = {
 
 const about = {
   path: "/about",
-  label: "About",
+  label: "Profile",
   title: `Portfolio – ${person.name}`,
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
@@ -95,7 +94,7 @@ const about = {
     experiences: [
       {
         company: "EBIW Info Analytics Pvt Ltd",
-        timeframe: "2023 - Present",
+        timeframe: "Dec, 2023 - Present",
         role: "Full Stack Developer - Lead",
         achievements: [
           <>
@@ -154,7 +153,7 @@ const about = {
 
       {
         company: "Hashcash Consultants",
-        timeframe: "2022 - 2023",
+        timeframe: "June, 2022 - Dec, 2023",
         role: "NodeJS Developer",
         achievements: [
           <>
@@ -248,8 +247,8 @@ const about = {
 
 const blog = {
   path: "/blog",
-  label: "Blog",
-  title: "Brief details about design and project setup...",
+  label: "Technical Blogs",
+  title: "A Comprehensive Insight into the Technical Implementation",
   description: `Read what ${person.name} has been up to recently`,
   // Create new blog posts by adding a new .mdx file to app/blog/posts
   // All posts will be listed on the /blog route
@@ -257,7 +256,7 @@ const blog = {
 
 const work = {
   path: "/work",
-  label: "Work",
+  label: "Projects",
   title: `Projects – ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
