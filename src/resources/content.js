@@ -10,7 +10,7 @@ const person = {
   avatar: "/images/avatar.png",
   email: "pankaj2007acharjee@gmail.com",
   location: "Asia/Kolkata", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  languages: ["English", "Bengali"], 
 };
 
 const newsletter = {
