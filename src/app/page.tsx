@@ -76,7 +76,7 @@ export default function Home() {
       {/* For Projects Section */}
       <div>
         <Heading as="h2" variant="display-strong-l" wrap="balance" align="center" marginBottom="8">
-          Top project from my company
+          IoT Project from EBIW
         </Heading>
         <RevealFx translateY="16" delay={0.6}>
           <Projects range={[1, 1]} />
