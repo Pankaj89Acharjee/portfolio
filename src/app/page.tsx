@@ -1,13 +1,17 @@
 import React from "react";
-
 import { Heading, Flex, Text, Button, Avatar, RevealFx, Column, Badge, Row, Meta, Schema } from "@once-ui-system/core";
 import { home, about, person, newsletter, baseURL, routes } from "@/resources";
 import { Mailchimp } from "@/components";
+import { GoogleBatch } from "@/components";
+
 import { Projects } from "@/components/work/Projects";
 import { Posts } from "@/components/blog/Posts";
 import { ProjectsForLanding } from "@/components/work/ProjectsForLanding";
 
 export default function Home() {
+
+
+
   return (
     <Column maxWidth="m" gap="xl" horizontal="center">
       <Schema
@@ -109,10 +113,14 @@ export default function Home() {
             <ProjectsForLanding range={[2]} />
           </div>
         </RevealFx>
-
       </div>
 
-
+      <div className="border">
+        <Heading as="h2" variant="display-strong-l" wrap="balance" align="center">
+          Certifications
+        </Heading>
+        <GoogleBatch />
+      </div>
 
       {newsletter.display && <Mailchimp newsletter={newsletter} />}
     </Column>
