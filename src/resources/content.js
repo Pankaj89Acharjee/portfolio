@@ -15,7 +15,7 @@ const person = {
 
 const newsletter = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
+  title: <>Subscribe to {person.firstName}&apos Newsletter</>,
   description: (
     <>
       If you found something interesting on me, finding any fit for any role at your organisation, feel free to contact me by filling the form.
@@ -47,7 +47,7 @@ const home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name}'s Portfolio`,
+  title: `${person.name} Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: <>Building intuitive ideas into code</>,
   featured: {
@@ -57,7 +57,7 @@ const home = {
   },
   subline: (
     <>
-      I'm Pankaj, a Full Stack Web Developer at <Logo icon="/trademarks/wordmark-dark.svg" style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.15em" }} />, committed to creating elegant and user-friendly web solutions.
+      I am Pankaj, a Full Stack Web Developer at <Logo icon="/trademarks/wordmark-dark.svg" style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.15em" }} />, committed to creating elegant and user-friendly web solutions.
       <br />I channel my expertise into building and managing my own portfolio of projects.
     </>
   ),
@@ -314,4 +314,4 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work };
+export { person, social, newsletter, home, about, blog, work, gallery };
